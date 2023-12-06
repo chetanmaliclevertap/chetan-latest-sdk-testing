@@ -46,39 +46,6 @@
     }
 });
 
-		<script nonce="abc123">
-            document.addEventListener('CT_close_campaign', function () {
-                const ctIframeBox = document.querySelector('#wiz-iframe');
-                if (ctIframeBox !== null) {
-                    ctIframeBox.addEventListener('load', function () {
-                        ctIframeBox.contentDocument.body.addEventListener('click', function (e) {
-                            switch (e.target.className) {
-                                case 'wzrkClose':
-                                    document.getElementById('wizParDiv0').style.display = 'none';
-                                    break;
-                                case 'CT_BannerClose':
-                                    document.getElementById('wizParDiv2').style.display = 'none';
-                                    break;
-                            }
-                        });
-                    });
-                }
-                const ctIframeInterstitial = document.querySelector('#wiz-iframe-intent');
-                if (ctIframeInterstitial !== null) {
-                    ctIframeInterstitial.addEventListener('load', function () {
-                        ctIframeInterstitial.contentDocument.body.addEventListener('click', function (e) {
-                            if (e.target.className === 'CT_InterstitialClose') {
-                                document.getElementById('intentPreview').style.display = 'none';
-                                if (document.getElementById('intentOpacityDiv') != null) {
-                                    document.getElementById('intentOpacityDiv').style.display = 'none';
-                                }
-                            }
-                        });
-                    });
-                }
-            });
-        </script>
-
 function renderCartDropOffPersonalisationCampaign (data) {
 	const name = data.kv.Name;
     const product = data.kv.Cart;
@@ -291,6 +258,39 @@ function renderCartDropOffPersonalisationCampaign (data) {
                 console.log(customerType);
             }
   </script>
+
+	    <script nonce="abc123">
+            document.addEventListener('CT_close_campaign', function () {
+                const ctIframeBox = document.querySelector('#wiz-iframe');
+                if (ctIframeBox !== null) {
+                    ctIframeBox.addEventListener('load', function () {
+                        ctIframeBox.contentDocument.body.addEventListener('click', function (e) {
+                            switch (e.target.className) {
+                                case 'wzrkClose':
+                                    document.getElementById('wizParDiv0').style.display = 'none';
+                                    break;
+                                case 'CT_BannerClose':
+                                    document.getElementById('wizParDiv2').style.display = 'none';
+                                    break;
+                            }
+                        });
+                    });
+                }
+                const ctIframeInterstitial = document.querySelector('#wiz-iframe-intent');
+                if (ctIframeInterstitial !== null) {
+                    ctIframeInterstitial.addEventListener('load', function () {
+                        ctIframeInterstitial.contentDocument.body.addEventListener('click', function (e) {
+                            if (e.target.className === 'CT_InterstitialClose') {
+                                document.getElementById('intentPreview').style.display = 'none';
+                                if (document.getElementById('intentOpacityDiv') != null) {
+                                    document.getElementById('intentOpacityDiv').style.display = 'none';
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+        </script>
               
         <link rel="stylesheet" href="/web-sdk-test/style.css" />
         <!-- <br />
