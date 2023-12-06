@@ -2,8 +2,9 @@
 <html>
     <head>
         <link rel="manifest" href="/web-sdk-test/manifest.json">
+	    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-abc123' https://sk1.clevertap-prod.com/a">
 	    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <script type="text/javascript">
+        <script type="text/javascript" nonce="abc6194">
              var clevertap = { event: [], profile: [], account: [], region: 'sk1-staging-4' };
 //		var clevertap = { event: [], profile: [], account: [], region: 'eu1' };
              clevertap.account.push({ id: "WRK-485-456Z" }); // Web Testing 
@@ -32,7 +33,7 @@
         </script>
     </head>
     <body>
-        <script type="text/javascript">
+        <script type="text/javascript" nonce="abc6194">
             
             document.addEventListener("CT_web_native_display", function(event) {
     const data = event.detail;
@@ -44,6 +45,39 @@
         }
     }
 });
+
+		<script nonce="abc123">
+            document.addEventListener('CT_close_campaign', function () {
+                const ctIframeBox = document.querySelector('#wiz-iframe');
+                if (ctIframeBox !== null) {
+                    ctIframeBox.addEventListener('load', function () {
+                        ctIframeBox.contentDocument.body.addEventListener('click', function (e) {
+                            switch (e.target.className) {
+                                case 'wzrkClose':
+                                    document.getElementById('wizParDiv0').style.display = 'none';
+                                    break;
+                                case 'CT_BannerClose':
+                                    document.getElementById('wizParDiv2').style.display = 'none';
+                                    break;
+                            }
+                        });
+                    });
+                }
+                const ctIframeInterstitial = document.querySelector('#wiz-iframe-intent');
+                if (ctIframeInterstitial !== null) {
+                    ctIframeInterstitial.addEventListener('load', function () {
+                        ctIframeInterstitial.contentDocument.body.addEventListener('click', function (e) {
+                            if (e.target.className === 'CT_InterstitialClose') {
+                                document.getElementById('intentPreview').style.display = 'none';
+                                if (document.getElementById('intentOpacityDiv') != null) {
+                                    document.getElementById('intentOpacityDiv').style.display = 'none';
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+        </script>
 
 function renderCartDropOffPersonalisationCampaign (data) {
 	const name = data.kv.Name;
